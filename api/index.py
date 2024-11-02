@@ -1,12 +1,18 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS, cross_origin
 
-from smoke_dispersion import simulate_smoke_dispersion
-from Location import Location
+from api.smoke_dispersion import simulate_smoke_dispersion
+from api.Location import Location
 
 app = Flask(__name__)
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
+
+@app.route('/', methods=['GET'])
+@cross_origin()
+def simulate():
+    return jsonify({"Server is running..."})
+  
 
 @app.route('/simulate', methods=['POST'])
 @cross_origin()
@@ -30,5 +36,4 @@ def simulate():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
-if __name__ == '__main__':
-    app.run(debug=True)
+app = app

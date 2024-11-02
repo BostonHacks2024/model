@@ -1,5 +1,5 @@
 import requests 
-from Location import Location
+from api.Location import Location
 
 API_URL = "https://api.open-meteo.com/v1/forecast?latitude={latitude}&longitude={longitude}&current=wind_speed_10m,wind_direction_10m"
 

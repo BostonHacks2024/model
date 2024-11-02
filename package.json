@@ -9,7 +9,7 @@
   "scripts": {
     "init-vm": "python3 -m venv .venv && source .venv/bin/activate",
     "build": "source .venv/bin/activate && pip install -r requirements.txt && echo 'Build Complete.'",
-    "api:run": "python3 api/main.py",
+    "api:run": "python3 api/index.py",
     "download:dataset": "curl -L -o ./models/datasets/wildfire/archive.zip https://www.kaggle.com/api/v1/datasets/download/abdelghaniaaba/wildfire-prediction-dataset && unzip -o ./models/datasets/wildfire/archive.zip -d ./models/datasets/wildfire && rm ./models/datasets/wildfire/archive.zip"
   }
 }
