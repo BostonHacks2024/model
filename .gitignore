@@ -1,3 +1,4 @@
 .venv
 *cpython*
 *cache*
+.vercel
