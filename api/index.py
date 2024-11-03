@@ -21,21 +21,20 @@ def simulate():
         data = request.get_json()
         x0 = data.get('latitude')
         y0 = data.get('longitude')
+        radius = data.get('radius', 3)
+        delta = data.get('separation', 0.2)
         
         if x0 is None or y0 is None:
             return jsonify({'error': 'Missing latitude or longitude'}), 400
 
         source = Location(x0, y0)
         
-        grid, radius, delta = simulate_smoke_dispersion(source)
+        grid = simulate_smoke_dispersion(source, radius, delta)
         
         result = [{"chunk": index + 1, 'latitude': element[0].x, 'longitude': element[0].y, "dispersion": element[1]} for index, element in enumerate(grid)]
         
-        response = {
-            "data": result,
-            "radius": radius,
-            "separation": delta,
-        }
+        response = {"data": result}
+        
         return jsonify(response)
     
     except Exception as e:

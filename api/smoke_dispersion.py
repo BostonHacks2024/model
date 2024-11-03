@@ -34,9 +34,7 @@ def calculate_dispersion_coefficients(x: float) -> tuple[float, float]:
 
     return sigma_y, sigma_z 
 
-def simulate_smoke_dispersion(source: Location) -> list[tuple[Location, float]]:
-    radius = 3
-    delta = 0.2 
+def simulate_smoke_dispersion(source: Location, radius: float, delta: float) -> list[tuple[Location, float]]:
 
     grid = build_grid(source, radius=radius, delta=delta)
 
