@@ -1,8 +1,8 @@
 import requests 
-from api.Location import Location
+from Location import Location
 import random
 
-API_URL = "https://api.open-meteo.com/v1/forecast?latitude={latitude}&longitude={longitude}&current=wind_speed_10m,wind_direction_10m"
+API_URL = "https://open-meteo.com/v1/forecast?latitude={latitude}&longitude={longitude}&current=wind_speed_10m,wind_direction_10m"
 
 def get_wind_data(point: Location) -> tuple[float, float]:
 

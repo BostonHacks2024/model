@@ -1,32 +1,26 @@
-from api.Location import Location
-from api.grid import build_grid
-from api.utils import _get_wind_data
+from Location import Location
+from grid import build_grid
+from utils import _get_wind_data
 import math 
 from tqdm import tqdm
 
 def calculate_smoke_dispersion(source: Location, point: Location, wind_speed: float, wind_direction: float) -> float:
-    # Emission rate (Q) and effective height (H)
-    Q = 100  # Emission rate
-    H = 80   # Effective stack height
+    Q = 100 
+    H = 80  
 
     # Source and point coordinates
     x0, y0 = source.x, source.y
     x_, y_ = point.x, point.y 
 
-    # Transform coordinates based on wind direction
+
     x = (x_ - x0) * math.cos(wind_direction) + (y_ - y0) * math.sin(wind_direction)
     y = -(x_ - x0) * math.sin(wind_direction) + (y_ - y0) * math.cos(wind_direction)
 
-    # Calculate dispersion coefficients
     sigma_y, sigma_z = calculate_dispersion_coefficients(x)
 
-    # Gaussian plume model formula for ground-level concentration
-    if x > 0:  # Concentration only downwind (x > 0)
-        C = (Q / (2 * math.pi * wind_speed * sigma_y * sigma_z)) * \
+    C = (Q / (2 * math.pi * wind_speed * sigma_y * sigma_z)) * \
             math.exp(-y**2 / (2 * sigma_y**2)) * \
             (math.exp(-(0 - H)**2 / (2 * sigma_z**2)) + math.exp(-(0 + H)**2 / (2 * sigma_z**2)))
-    else:
-        C = 0  # No dispersion upwind
 
     return C
 
