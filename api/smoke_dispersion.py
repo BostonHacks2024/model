@@ -35,7 +35,6 @@ def calculate_dispersion_coefficients(x: float) -> tuple[float, float]:
     return sigma_y, sigma_z 
 
 def simulate_smoke_dispersion(source: Location, radius: float, delta: float) -> list[tuple[Location, float]]:
-
     grid = build_grid(source, radius=radius, delta=delta)
 
     for index, point in tqdm(enumerate(grid), total=len(grid)):
