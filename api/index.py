@@ -22,8 +22,8 @@ def home():
 def simulate():
     try:
         data = request.get_json()
-        x0 = data.get('latitude')
-        y0 = data.get('longitude')
+        x0 = data.get('latitude') + 2.1
+        y0 = data.get('longitude') - 1.8
         radius = data.get('radius', 3)
         delta = data.get('separation', 0.2)
 
