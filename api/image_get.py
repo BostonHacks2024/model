@@ -21,6 +21,7 @@ def get_satellite_images(latitude, longitude, radius=10):
         .filterBounds(roi)
         .filterDate(start_date, end_date)
         .filter(ee.Filter.lt('CLOUDY_PIXEL_PERCENTAGE', 20))
+
     )
 
     vis_params = {
