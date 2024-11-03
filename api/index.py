@@ -3,7 +3,7 @@ from flask_cors import CORS, cross_origin
 from api.urls import image_urls
 from api.smoke_dispersion import simulate_smoke_dispersion
 from api.Location import Location
-from api.run_model import predict_img
+# from api.run_model import predict_img
 from pprint import pprint 
 
 app = Flask(__name__)
