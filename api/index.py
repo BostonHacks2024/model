@@ -1,9 +1,9 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS, cross_origin
-from urls import image_urls
-from smoke_dispersion import simulate_smoke_dispersion
-from Location import Location
-from run_model import predict_img
+from api.urls import image_urls
+from api.smoke_dispersion import simulate_smoke_dispersion
+from api.Location import Location
+from api.run_model import predict_img
 from pprint import pprint 
 
 app = Flask(__name__)
@@ -27,28 +27,18 @@ def simulate():
         delta = data.get('separation', 0.2)
 
 
-        wildfire_images = []
-        for image in image_urls[:10]:
-            is_wildfire = predict_img(image[0]) == "Wildfire"
-            if is_wildfire: wildfire_images.append(image)
+        if x0 is None or y0 is None:
+            return jsonify({'error': 'Missing latitude or longitude'}), 400
 
-        # pprint(wildfire_images)
-
-
-
+        source = Location(x0, y0)
         
-        # if x0 is None or y0 is None:
-        #     return jsonify({'error': 'Missing latitude or longitude'}), 400
-
-        # source = Location(x0, y0)
+        grid = simulate_smoke_dispersion(source, radius, delta)
         
-        # grid = simulate_smoke_dispersion(source, radius, delta)
+        result = [{"chunk": index + 1, 'latitude': element[0].x, 'longitude': element[0].y, "dispersion": element[1]} for index, element in enumerate(grid)]
         
-        # result = [{"chunk": index + 1, 'latitude': element[0].x, 'longitude': element[0].y, "dispersion": element[1]} for index, element in enumerate(grid)]
+        response = {"data": result}
         
-        # response = {"data": result}
-        
-        # return jsonify(response)
+        return jsonify(response)
         return jsonify({"message": wildfire_images})
     
     except Exception as e:
