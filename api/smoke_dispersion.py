@@ -1,6 +1,6 @@
-from Location import Location
-from grid import build_grid
-from utils import _get_wind_data
+from api.Location import Location
+from api.grid import build_grid
+from api.utils import _get_wind_data
 import math 
 from tqdm import tqdm
 
