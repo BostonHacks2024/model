@@ -1,8 +1,8 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS, cross_origin
 from urls import image_urls
-from api.smoke_dispersion import simulate_smoke_dispersion
-from api.Location import Location
+from smoke_dispersion import simulate_smoke_dispersion
+from Location import Location
 from run_model import predict_img
 from pprint import pprint 
 
@@ -28,7 +28,7 @@ def simulate():
 
 
         wildfire_images = []
-        for image in image_urls:
+        for image in image_urls[:10]:
             is_wildfire = predict_img(image[0]) == "Wildfire"
             if is_wildfire: wildfire_images.append(image)
 

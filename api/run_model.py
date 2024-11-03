@@ -4,6 +4,8 @@ import numpy as np
 import cv2
 from tensorflow.keras.models import load_model
 
+model = load_model('model/wildfire_classifier_model.h5')
+
 
 # takes url and outputs the img data to be used in the predict img fn
 def fetch_img(url):
@@ -18,7 +20,7 @@ def fetch_img(url):
     return img
 
 def predict_img(url):
-    model = load_model('model/wildfire_classifier_model.h5')
+    global model
     img = fetch_img(url)
     prediction = model.predict(img)
     label = "Wildfire" if prediction[0] > 0.5 else "Not Wildfire"

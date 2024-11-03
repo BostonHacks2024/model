@@ -1,5 +1,5 @@
 import numpy as np
-from api.Location import Location 
+from Location import Location 
 
 def build_grid(source: Location, radius=5, delta=0.1) -> list:
     x0 = source.x
