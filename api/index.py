@@ -3,7 +3,7 @@ from flask_cors import CORS, cross_origin
 from api.urls import image_urls
 from api.smoke_dispersion import simulate_smoke_dispersion
 from api.Location import Location
-from api.run_model import predict_img
+# from api.run_model import predict_img
 import random 
 
 # aa
@@ -37,10 +37,10 @@ def simulate():
         
         grid = simulate_smoke_dispersion(source, radius, delta)
 
-        wildfire_images = []
-        for index, image in enumerate(random.sample(image_urls, 6)):
-            if predict_img(image) == "Wildfire" and index < len(grid):
-                wildfire_images.append((image, grid[index][0].x, grid[index][0].y))
+        # wildfire_images = []
+        # for index, image in enumerate(random.sample(image_urls, 6)):
+        #     if predict_img(image) == "Wildfire" and index < len(grid):
+        #         wildfire_images.append((image, grid[index][0].x, grid[index][0].y))
         
         result = [{"chunk": index + 1, 'latitude': element[0].x, 'longitude': element[0].y, "dispersion": element[1]} for index, element in enumerate(grid)]
         
