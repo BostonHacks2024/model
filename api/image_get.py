@@ -1,11 +1,12 @@
 import ee
 from pprint import pprint
 from datetime import datetime, timedelta
+from tqdm import tqdm 
 
 ee.Authenticate()
 ee.Initialize(project='ee-neelrages')
 
-def get_satellite_images(latitude, longitude, radius=10):
+def get_satellite_images(latitude, longitude, radius=20):
     radius_meters = radius * 1609.34
     point = ee.Geometry.Point([longitude, latitude])
     roi = point.buffer(radius_meters)
@@ -32,19 +33,21 @@ def get_satellite_images(latitude, longitude, radius=10):
 
     image_urls = []
     images = collection.toList(collection.size())
-    for i in range(images.size().getInfo()):
+    for i in tqdm(range(images.size().getInfo())):
         image = ee.Image(images.get(i))
 
         # Increase image resolution
         url = image.getThumbURL({
             'region': roi.getInfo()['coordinates'],
-            'dimensions': 1024,
+            'dimensions': 128,
             'format': 'png',
             **vis_params
         })
-        image_urls.append(url)
+        image_urls.append((url, latitude, longitude))
 
     return image_urls
 
 images = get_satellite_images(43.000, -71.299)
-pprint(images)
+
+with open('image_urls.py', 'w') as f:
+    f.write(images)
