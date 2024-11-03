@@ -42,4 +42,4 @@ def simulate_smoke_dispersion(source: Location, radius: float, delta: float) -> 
         dispersion = calculate_smoke_dispersion(source, point, wind_speed, wind_direction)
         grid[index] = (grid[index], dispersion)
     
-    return grid, radius, delta
+    return grid
