@@ -6,6 +6,7 @@ from api.Location import Location
 # from api.run_model import predict_img
 from pprint import pprint 
 
+# aa
 app = Flask(__name__)
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
