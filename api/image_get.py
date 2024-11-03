@@ -11,7 +11,7 @@ def get_satellite_images(latitude, longitude, radius=10):
     roi = point.buffer(radius_meters)
 
     # Extend date range
-    start_date = (datetime.now() - timedelta(days=90)).strftime('%Y-%m-%d')
+    start_date = (datetime.now() - timedelta(days=200)).strftime('%Y-%m-%d')
     end_date = datetime.now().strftime('%Y-%m-%d')
 
     # Adjust cloud cover threshold
@@ -19,7 +19,6 @@ def get_satellite_images(latitude, longitude, radius=10):
         ee.ImageCollection('COPERNICUS/S2_HARMONIZED')
         .filterBounds(roi)
         .filterDate(start_date, end_date)
-        .filter(ee.Filter.lt('CLOUDY_PIXEL_PERCENTAGE', 50))
     )
 
     # Print number of images
@@ -27,7 +26,7 @@ def get_satellite_images(latitude, longitude, radius=10):
 
     vis_params = {
         'min': 0,
-        'max': 3000,
+        'max': 0.3,
         'bands': ['B4', 'B3', 'B2'],
     }
 
