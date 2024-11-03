@@ -1,6 +1,6 @@
 from api.Location import Location
 from api.grid import build_grid
-from api.utils import get_wind_data
+from api.utils import _get_wind_data
 import math 
 from tqdm import tqdm
 
@@ -35,11 +35,14 @@ def calculate_dispersion_coefficients(x: float) -> tuple[float, float]:
     return sigma_y, sigma_z 
 
 def simulate_smoke_dispersion(source: Location) -> list[tuple[Location, float]]:
-    grid = build_grid(source, radius=2, delta=1)
+    radius = 3
+    delta = 0.2 
+
+    grid = build_grid(source, radius=radius, delta=delta)
 
     for index, point in tqdm(enumerate(grid), total=len(grid)):
-        wind_speed, wind_direction = get_wind_data(point)
+        wind_speed, wind_direction = _get_wind_data(point)
         dispersion = calculate_smoke_dispersion(source, point, wind_speed, wind_direction)
         grid[index] = (grid[index], dispersion)
     
-    return grid
+    return grid, radius, delta
