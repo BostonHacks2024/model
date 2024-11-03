@@ -40,4 +40,5 @@ def simulate():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
-app = app
+if __name__ == "__main__":
+    app.run(debug=False)
