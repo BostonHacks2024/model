@@ -27,11 +27,16 @@ def simulate():
 
         source = Location(x0, y0)
         
-        grid = simulate_smoke_dispersion(source)
+        grid, radius, delta = simulate_smoke_dispersion(source)
         
         result = [{"chunk": index + 1, 'latitude': element[0].x, 'longitude': element[0].y, "dispersion": element[1]} for index, element in enumerate(grid)]
         
-        return jsonify({'data': result})
+        response = {
+            "data": result,
+            "radius": radius,
+            "separation": delta,
+        }
+        return jsonify(response)
     
     except Exception as e:
         return jsonify({'error': str(e)}), 500
