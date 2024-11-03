@@ -1,2 +1,6 @@
 venv/
 datasets/
+.venv
+*cpython*
+*cache*
+.vercel
