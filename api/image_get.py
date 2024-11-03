@@ -11,18 +11,16 @@ def get_satellite_images(latitude, longitude, radius=10):
     radius_meters = radius * 1609.34
     
     point = ee.Geometry.Point([longitude, latitude])
-    roi = point.buffer(radius_meters)  # Buffer creates a circular area with the specified radius
+    roi = point.buffer(radius_meters) 
     
-    # Define the time range for recent images
     start_date = (datetime.now() - timedelta(days=30)).strftime('%Y-%m-%d')
     end_date = datetime.now().strftime('%Y-%m-%d')
     
-    # Get the Sentinel-2 Image Collection for the defined date range and ROI
     collection = (
-        ee.ImageCollection('COPERNICUS/S2')
+        ee.ImageCollection('COPERNICUS/S2_HARMONIZED')
         .filterBounds(roi)
         .filterDate(start_date, end_date)
-        .filter(ee.Filter.lt('CLOUDY_PIXEL_PERCENTAGE', 20))  # Filter for low cloud cover
+        .filter(ee.Filter.lt('CLOUDY_PIXEL_PERCENTAGE', 20))
     )
 
     vis_params = {
