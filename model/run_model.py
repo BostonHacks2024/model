@@ -18,11 +18,8 @@ def fetch_img(url):
     return img
 
 def predict_img(url):
-    model = load_model('/Users/chasecoogan/Documents/bu/model/wildfire_classifier_model.h5')
+    model = load_model('model/wildfire_classifier_model.h5')
     img = fetch_img(url)
     prediction = model.predict(img)
     label = "Wildfire" if prediction[0] > 0.5 else "Not Wildfire"
     return label
-
-
-
