@@ -8,8 +8,10 @@ def calculate_smoke_dispersion(source: Location, point: Location, wind_speed: fl
     Q = 100 
     H = 80  
 
+    # Source and point coordinates
     x0, y0 = source.x, source.y
     x_, y_ = point.x, point.y 
+
 
     x = (x_ - x0) * math.cos(wind_direction) + (y_ - y0) * math.sin(wind_direction)
     y = -(x_ - x0) * math.sin(wind_direction) + (y_ - y0) * math.cos(wind_direction)
@@ -23,14 +25,17 @@ def calculate_smoke_dispersion(source: Location, point: Location, wind_speed: fl
     return C
 
 def calculate_dispersion_coefficients(x: float) -> tuple[float, float]:
+    # Empirical dispersion coefficients based on distance x
     sigma_y = 0.22 * (x ** 0.5)
     sigma_z = 0.2 * x
 
     return sigma_y, sigma_z 
 
 def simulate_smoke_dispersion(source: Location, radius: float, delta: float) -> list[tuple[Location, float]]:
+    # Create a grid of points around the source
     grid = build_grid(source, radius=radius, delta=delta)
 
+    # Calculate dispersion at each grid point
     for index, point in tqdm(enumerate(grid), total=len(grid)):
         wind_speed, wind_direction = _get_wind_data(point)
         dispersion = calculate_smoke_dispersion(source, point, wind_speed, wind_direction)
