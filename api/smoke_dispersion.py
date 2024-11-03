@@ -3,6 +3,18 @@ from grid import build_grid
 from utils import _get_wind_data
 import math 
 from tqdm import tqdm
+import random
+
+
+def mock_smoke_dispersion(source: Location, point: Location) -> float:
+    distance = math.sqrt((point.x - source.x) ** 2 + (point.y - source.y) ** 2)
+    
+    if distance == 0:
+        dispersion = random.uniform(80, 100) 
+    else:
+        dispersion = random.uniform(10, 50) / distance 
+
+    return dispersion
 
 def calculate_smoke_dispersion(source: Location, point: Location, wind_speed: float, wind_direction: float) -> float:
     Q = 100 
@@ -32,8 +44,7 @@ def simulate_smoke_dispersion(source: Location, radius: float, delta: float) -> 
     grid = build_grid(source, radius=radius, delta=delta)
 
     for index, point in tqdm(enumerate(grid), total=len(grid)):
-        wind_speed, wind_direction = _get_wind_data(point)
-        dispersion = calculate_smoke_dispersion(source, point, wind_speed, wind_direction)
+        dispersion = mock_smoke_dispersion(source, point)
         grid[index] = (grid[index], dispersion)
     
     return grid
