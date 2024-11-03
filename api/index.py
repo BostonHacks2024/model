@@ -10,8 +10,8 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 
 @app.route('/', methods=['GET'])
 @cross_origin()
-def simulate():
-    return jsonify({"Server is running..."})
+def home():
+    return jsonify({"message": "Server is running..."})
   
 
 @app.route('/simulate', methods=['POST'])
