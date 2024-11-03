@@ -53,3 +53,4 @@ def get_satellite_images(latitude, longitude, radius=20):
 images = get_satellite_images(43.000, -71.299)
 
 print(images)
+
