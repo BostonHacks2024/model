@@ -38,10 +38,10 @@ def simulate():
         result = [{"chunk": index + 1, 'latitude': element[0].x, 'longitude': element[0].y, "dispersion": element[1]} for index, element in enumerate(grid)]
         
         response = {"data": result}
-        
+
+        # comment
         return jsonify(response)
-        return jsonify({"message": wildfire_images})
-    
+       
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
