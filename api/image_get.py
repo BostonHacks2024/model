@@ -52,5 +52,5 @@ def get_satellite_images(latitude, longitude, radius=20):
 
 images = get_satellite_images(43.000, -71.299)
 
-with open('image_urls.py', 'w') as f:
-    f.write(images)
+print(images)
+
