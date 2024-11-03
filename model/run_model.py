@@ -25,6 +25,4 @@ def predict_img(url):
     return label
 
 
-url = "https://earthengine.googleapis.com/v1/projects/ee-neelrages/thumbnails/35cfbc9cbf7e43318855912e1adb5186-e308d37c896f64f2496925ff2d0d2fa5:getPixels"
-label = predict_img(url)
 
